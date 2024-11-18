@@ -1,0 +1,36 @@
+@import "/src/styles//GlobalStyle.module.less";
+
+.container {
+  width: 100%;
+  height: 100vh;
+
+  .titleContainer {
+    width: 100%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: @mainColor;
+
+    p {
+      font-size: 2rem;
+      font-weight: lighter;
+      color: @white;
+      font-family: @logoFont;
+      span {
+        font-size: 3rem;
+        font-weight: bold;
+      }
+    }
+  }
+  .loginContainer {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  img:hover {
+    cursor: pointer;
+  }
+}
