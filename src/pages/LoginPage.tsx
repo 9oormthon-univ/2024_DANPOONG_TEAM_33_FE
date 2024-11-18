@@ -14,10 +14,7 @@ const LoginPage = () => {
         </p>
       </div>
       <div className={styles.loginContainer}>
-        <img
-          src="/src/assets/image/kakao_login_medium_wide.png"
-          onClick={socialKaKaoLogin}
-        />
+        <img src="/image/kakaoLogin.png" onClick={socialKaKaoLogin} />
       </div>
     </div>
   );
