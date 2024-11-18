@@ -1,5 +1,5 @@
 import styles from "../styles/LoginPage.module.less";
-import { getKaKaoLoginURL } from "../service/UserService";
+import { getKaKaoLoginURL } from "../service/UserService.ts";
 
 const LoginPage = () => {
   const socialKaKaoLogin = () => {

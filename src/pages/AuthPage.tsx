@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { getToken } from "../service/UserService";
+import { getToken } from "../service/UserService.ts";
 
 const AuthPage = () => {
   const navigate = useNavigate();
