@@ -1,5 +1,5 @@
-import CustomAxios from "../api/CustomAxios";
-import { useAuthStore } from "../store/auth/authStore";
+import CustomAxios from "../api/CustomAxios.ts";
+import { useAuthStore } from "../store/auth/authStore.ts";
 
 export const getKaKaoLoginURL = () => {
   return `https://kauth.kakao.com/oauth/authorize?client_id=${

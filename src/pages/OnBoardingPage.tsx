@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import CommonTable from "../components/CommonTable";
+import CommonTable from "../components/CommonTable.tsx";
 import styles from "../styles/OnBoardingPage.module.less";
-import Header from "../components/Header";
+import Header from "../components/Header.tsx";
 import CareerInfo from "../components/CareerInfo";
 const OnBoardingPage: React.FC = () => {
   // 자격증 테이블 설정

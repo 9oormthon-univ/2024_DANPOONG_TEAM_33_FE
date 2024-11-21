@@ -1,4 +1,4 @@
-import CustomAxios from "../api/CustomAxios";
+import CustomAxios from "../api/CustomAxios.ts";
 
 export const getQualificationsCompany = async () => {
   try {
