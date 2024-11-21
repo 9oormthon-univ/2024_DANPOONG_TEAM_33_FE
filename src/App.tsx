@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/LoginPage.tsx";
 import AuthPage from "./pages/AuthPage.tsx";
 import MainPage from "./pages/MainPage.tsx";
-import ResumePage from "./pages/ ResumePage.tsx";
+import ResumePage from "./pages/ResumePage.tsx";
 import MyPage from "./pages/MyPage.tsx";
 import OnBoardingPage from "./pages/OnBoardingPage.tsx";
 function App() {
