@@ -1,0 +1,183 @@
+@import "/src/styles//GlobalStyle.module.less";
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.section {
+  margin-bottom: 80px;
+
+  h2 {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+}
+
+.searchBox {
+  border: 1px solid @mainColor;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+
+  input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 14px;
+
+    &::placeholder {
+      color: #94a3b8;
+    }
+  }
+
+  .searchIcon {
+    width: 40px;
+    height: 40px;
+    background-color: @white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .searchIcon:hover {
+    cursor: pointer;
+  }
+}
+
+.selectionBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid @mainColor;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.selectionGroup {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.mainSelection,
+.subSelection {
+  flex: 1;
+  position: relative;
+
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+    background: @white;
+  }
+
+  .optionList {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 10;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    .option {
+      padding: 10px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #f8fafc;
+      }
+    }
+  }
+}
+
+.careerBox {
+  border: 1px solid @mainColor;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+
+  input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:checked {
+      accent-color: @mainColor;
+    }
+  }
+
+  span {
+    font-size: 14px;
+  }
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.button {
+  padding: 10px 24px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.skipButton {
+  .button();
+  background: white;
+  border: 1px solid @mainColor;
+  color: @mainColor;
+}
+
+.submitButton,
+.saveButton {
+  .button();
+  background: @mainColor;
+  color: white;
+  border: none;
+
+  &:hover {
+    background: darken(@mainColor, 5%);
+  }
+}
+
+.saveButton {
+  display: block;
+  margin: 0 auto;
+}
