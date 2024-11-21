@@ -1,0 +1,137 @@
+@import "/src/styles//GlobalStyle.module.less";
+.container {
+  width: 100%;
+  height: 100%;
+  width: 100%;
+  height: 100%;
+  background-color: @gray1;
+  opacity: 0.5;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+.FileUpload {
+  opacity: 1;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 300px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  background-color: @white;
+  padding: 1%;
+  .topContainer {
+    width: 100%;
+    height: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    p {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      width: 95%;
+      height: 100%;
+      font-size: 1rem;
+      font-weight: bold;
+      font-family: @mainFont;
+    }
+    button {
+      width: 5%;
+      height: 100%;
+      border: none;
+      background-color: transparent;
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+    button:hover {
+      cursor: pointer;
+    }
+  }
+  .mainContainer {
+    width: 100%;
+    height: 80%;
+    border: 2px solid @mainColor;
+    border-radius: 10px;
+    .uploadContainer {
+      width: 100%;
+      height: 80%;
+      border-bottom: 2px solid @mainColor;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .infoBox {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 300px;
+        height: 100px;
+
+        img {
+          width: 80px;
+          height: 80px;
+        }
+        p {
+          font-size: 1rem;
+          font-family: @logoFont;
+          color: @gray2;
+        }
+      }
+    }
+    .fileContainer {
+      width: 100%;
+      height: 20%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .left {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20%;
+        height: 100%;
+        border-right: 2px solid @mainColor;
+        font-size: 1rem;
+        font-family: @mainFont;
+        color: @mainColor;
+      }
+      .right {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60%;
+        height: 100%;
+      }
+      .fileBtn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20%;
+        height: 100%;
+        background-color: @mainColor;
+        color: @white;
+        font-size: 1rem;
+        font-family: @mainFont;
+        border: none;
+        border-bottom-right-radius: 7px;
+        input[type="file"] {
+          display: none;
+        }
+        label {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
