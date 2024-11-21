@@ -21,18 +21,16 @@ const Header = () => {
           </div>
         </div>
         <div className={styles.userContainer}>
-          <div className={styles.profileContainer}>
-            {user ? (
-              <div>
-                <img src={user.profileImage} /> <p>{user.name}</p>
-              </div>
-            ) : (
-              <div>
-                <img src="/image/profileLogo.png" />
-                <p>일트님</p>
-              </div>
-            )}
-          </div>
+          {user ? (
+            <div className={styles.profileContainer}>
+              <img src={user.profileImage} /> <p>{user.name}</p>
+            </div>
+          ) : (
+            <div className={styles.profileContainer}>
+              <img src="/image/profileLogo.png" /> <p>일트님</p>
+            </div>
+          )}
+
           <div className={styles.btnContainer}>
             <button onClick={() => navigate("/login")}>로그인</button>
           </div>
