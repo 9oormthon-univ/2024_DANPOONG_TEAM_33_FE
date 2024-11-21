@@ -35,7 +35,7 @@ export const getToken = async (
 
 export const getUserInfo = async (): Promise<{ success: boolean }> => {
   try {
-    const response = await CustomAxios.get("/spring/user/info");
+    const response = await CustomAxios.get("/spring/users/info");
 
     if (response.status === 200) {
       const userData = response.data.result;
