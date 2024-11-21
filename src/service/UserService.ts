@@ -1,4 +1,5 @@
 import CustomAxios from "../api/CustomAxios";
+import { useAuthStore } from "../store/auth/authStore";
 
 export const getKaKaoLoginURL = () => {
   return `https://kauth.kakao.com/oauth/authorize?client_id=${
@@ -21,6 +22,30 @@ export const getToken = async (
       console.log("액세스 토큰", accessToken, "리프레쉬토큰", refreshToken);
       window.localStorage.setItem("accessToken", accessToken);
       window.localStorage.setItem("refreshToken", refreshToken);
+
+      return { success: true };
+    }
+
+    return { success: false };
+  } catch (error) {
+    console.log(error);
+    return { success: false };
+  }
+};
+
+export const getUserInfo = async (): Promise<{ success: boolean }> => {
+  try {
+    const response = await CustomAxios.get("/spring/user/info");
+
+    if (response.status === 200) {
+      const userData = response.data.result;
+
+      useAuthStore.getState().login(useAuthStore.getState().token!, {
+        id: userData.id,
+        name: userData.name,
+        email: userData.email,
+        profileImage: userData.profileImageUrl,
+      });
 
       return { success: true };
     }
