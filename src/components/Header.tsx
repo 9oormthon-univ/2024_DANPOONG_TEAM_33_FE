@@ -1,7 +1,7 @@
 import styles from "../styles/Header.module.less";
-import { useInput } from "../hook/UseInput";
+import { useInput } from "../hook/UseInput.ts";
 import { useNavigate } from "react-router-dom";
-import { useAuthStore } from "../store/auth/authStore";
+import { useAuthStore } from "../store/auth/AuthStore.ts";
 
 const Header = () => {
   const [search, setSearch] = useInput();
