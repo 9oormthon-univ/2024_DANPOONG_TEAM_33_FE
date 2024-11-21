@@ -39,6 +39,7 @@ export const getUserInfo = async (): Promise<{ success: boolean }> => {
 
     if (response.status === 200) {
       const userData = response.data.result;
+      console.log("사용자 정보", userData);
 
       useAuthStore.getState().login(useAuthStore.getState().token!, {
         id: userData.id,

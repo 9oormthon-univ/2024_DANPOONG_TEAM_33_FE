@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { getToken, getUserInfo } from "../service/UserService.ts"; // getUserInfo 추가
+import { getToken, getUserInfo } from "../service/UserService.ts";
 
 const AuthPage = () => {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ const AuthPage = () => {
       try {
         const tokenResponse = await getToken(code);
         if (tokenResponse.success) {
-          const userInfoResponse = await getUserInfo(); // 사용자 정보 가져오기
+          const userInfoResponse = await getUserInfo();
           if (userInfoResponse.success) {
             navigate("/");
           }
