@@ -1,7 +1,7 @@
 import styles from "../styles/Resume.module.less";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import FileUpload from "../components/FileUpload";
+import Footer from "../components/Footer.tsx";
+import Header from "../components/Header.tsx";
+import FileUpload from "../components/FileUpload.tsx";
 import { useState, useEffect } from "react";
 const ResumePage = () => {
   const [fileUpload, setFileUpload] = useState<boolean>(false);
