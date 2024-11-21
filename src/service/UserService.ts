@@ -41,7 +41,7 @@ export const getUserInfo = async (): Promise<{ success: boolean }> => {
       const userData = response.data.result;
       console.log("사용자 정보", userData);
 
-      useAuthStore.getState().login(useAuthStore.getState().token!, {
+      useAuthStore.getState().updateUser({
         id: userData.id,
         name: userData.name,
         email: userData.email,
@@ -53,7 +53,7 @@ export const getUserInfo = async (): Promise<{ success: boolean }> => {
 
     return { success: false };
   } catch (error) {
-    console.log(error);
+    console.error("사용자 정보 조회 실패:", error);
     return { success: false };
   }
 };

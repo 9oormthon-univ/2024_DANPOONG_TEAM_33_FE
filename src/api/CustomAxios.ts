@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useAuthStore } from "../store/auth/AuthStore.ts";
 
 const CustomAxios = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -11,7 +10,11 @@ const CustomAxios = axios.create({
 
 CustomAxios.interceptors.request.use(
   (config) => {
-    const token = useAuthStore.getState().token;
+    const authData = localStorage.getItem("accessToken");
+    const token = authData ? JSON.parse(authData).state.token : null;
+
+    console.log("저장된 토큰:", token);
+
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
