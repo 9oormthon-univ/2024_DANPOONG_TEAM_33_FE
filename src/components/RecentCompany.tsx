@@ -5,13 +5,18 @@ const RecentCompany = ({ recentCompanyList }: { recentCompanyList: any[] }) => {
     <div className={styles.container}>
       <div className={styles.header}>
         <h2>최근 채용 공고 기업</h2>
-        <a href="/more" className={styles.more}>
+        <a href="/recentcompany" className={styles.more}>
           더보기 &gt;
         </a>
       </div>
       <div className={styles.grid}>
         {recentCompanyList.map((company, index) => (
-          <div key={index} className={styles.card}>
+          <div
+            key={index}
+            className={styles.card}
+            onClick={() => (window.location.href = `/apply/${company.infoNo}`)}
+            style={{ cursor: "pointer" }}
+          >
             <h3>{company.companyName}</h3>
             <ul>
               {company.certificationsEssential.map(

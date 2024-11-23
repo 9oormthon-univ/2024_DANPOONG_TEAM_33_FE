@@ -1,9 +1,5 @@
 import styles from "../styles/FileUpload.module.less";
 import { useState } from "react";
-interface FileUploadProps {
-  setFileUpload: (fileUpload: boolean) => void;
-  onFileSelect: (file: File) => void;
-}
 
 const FileUpload = ({ setFileUpload, onFileSelect }: FileUploadProps) => {
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);

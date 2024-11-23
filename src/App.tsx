@@ -5,9 +5,12 @@ import MainPage from "./pages/MainPage.tsx";
 import ResumePage from "./pages/ResumePage.tsx";
 import MyPage from "./pages/MyPage.tsx";
 import OnBoardingPage from "./pages/OnBoardingPage.tsx";
+import ApplyPage from "./pages/ApplyPage.tsx";
 function App() {
   return (
     <Routes>
+      <Route path="/apply/:infoNo" element={<ApplyPage />} />
+      <Route path="/apply" element={<ApplyPage />} />
       <Route path="/onboarding" element={<OnBoardingPage />} />
       <Route path="/mypage" element={<MyPage />} />
       <Route path="/resume" element={<ResumePage />} />

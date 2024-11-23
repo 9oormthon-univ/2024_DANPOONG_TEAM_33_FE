@@ -18,7 +18,7 @@ export const getToken = async (
     if (response.status === 200) {
       console.log(response);
       const accessToken = response.data.result.Access;
-      const refreshToken = response.data.refreshToken;
+      const refreshToken = response.data.result.Refresh;
       console.log("액세스 토큰", accessToken, "리프레쉬토큰", refreshToken);
       window.localStorage.setItem("accessToken", accessToken);
       window.localStorage.setItem("refreshToken", refreshToken);
@@ -41,12 +41,16 @@ export const getUserInfo = async (): Promise<{ success: boolean }> => {
       const userData = response.data.result;
       console.log("사용자 정보", userData);
 
-      useAuthStore.getState().updateUser({
-        id: userData.id,
-        name: userData.name,
-        email: userData.email,
-        profileImage: userData.profileImageUrl,
-      });
+      useAuthStore.setState((state) => ({
+        ...state,
+        user: {
+          id: userData.id,
+          name: userData.name,
+          email: userData.email,
+          profileImage: userData.profileImageUrl,
+        },
+        isAuthenticated: true,
+      }));
 
       return { success: true };
     }

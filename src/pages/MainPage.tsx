@@ -27,12 +27,12 @@ const MainPage = () => {
   const [showImage, setShowImage] = useState<boolean>(true);
   const [companyList, setCompanyList] = useState([
     // 서버 api 호출 전 임시 데이터
-    { name: "삼성전자1", end_date: "2024-12-31" },
-    { name: "삼성전자2", end_date: "2024-12-31" },
-    { name: "삼성전자3", end_date: "2024-12-31" },
-    { name: "삼성전자4", end_date: "2024-12-31" },
-    { name: "삼성전자5", end_date: "2024-12-31" },
-    { name: "삼성전자6", end_date: "2024-12-31" },
+    { name: "버그헌터", end_date: "2024-12-31" },
+    { name: "웹모션", end_date: "2024-12-31" },
+    { name: "빅데이터코어", end_date: "2024-12-31" },
+    { name: "디자인버스", end_date: "2024-12-31" },
+    { name: "서버웍스", end_date: "2024-12-31" },
+    { name: "빅데이터랩", end_date: "2024-12-31" },
   ]);
   const [value, setValue] = useState(new Date());
 
@@ -232,6 +232,7 @@ const MainPage = () => {
               ) : (
                 <p></p>
               )}
+              <a href="/qualificationscompany">더보기 &gt;</a>
             </div>
 
             {qualificationsCompany.length === 0 ? (
