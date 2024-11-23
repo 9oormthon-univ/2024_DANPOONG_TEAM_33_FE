@@ -5,13 +5,10 @@ export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
       user: null,
-      token: null,
       isAuthenticated: false,
-
-      login: (token, userData) => {
+      login: (userData) => {
         set({
           user: userData,
-          token,
           isAuthenticated: true,
         });
       },
@@ -19,26 +16,13 @@ export const useAuthStore = create<AuthState>()(
       logout: () => {
         set({
           user: null,
-          token: null,
           isAuthenticated: false,
         });
-      },
-
-      updateUser: (userData) => {
-        set((state) => ({
-          user: state.user ? { ...state.user, ...userData } : null,
-        }));
-      },
-
-      updateToken: (newToken) => {
-        set((state) => ({
-          ...state,
-          token: newToken,
-        }));
+        localStorage.removeItem("accessToken");
       },
     }),
     {
-      name: "accessToken",
+      name: "authData",
       storage: createJSONStorage(() => localStorage),
     }
   )

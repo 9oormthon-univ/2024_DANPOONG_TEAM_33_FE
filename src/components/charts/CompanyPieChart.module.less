@@ -1,0 +1,58 @@
+@import "../../styles/GlobalStyle.module.less";
+
+.chartContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 250px;
+  height: 270px;
+  border: 1px solid @mainColor;
+  border-radius: 10px;
+  position: relative;
+
+  :global {
+    .slick-prev,
+    .slick-next {
+      &:before {
+        color: #007bff;
+      }
+    }
+  }
+}
+
+.slideContent {
+  padding: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  h3 {
+    margin-bottom: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    position: absolute;
+  }
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 10px;
+  padding: 0 10px;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+}
+
+.colorBox {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}

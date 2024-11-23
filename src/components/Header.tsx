@@ -9,13 +9,10 @@ const Header = () => {
   const user = useAuthStore((state) => state.user);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
-  console.log("Header user:", user);
-  console.log("Is authenticated:", isAuthenticated);
-
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <p>
+        <p onClick={() => navigate("/")}>
           make&nbsp;<span>1t</span>&nbsp;with a&nbsp;
         </p>
         <div className={styles.searchContainer}>
@@ -31,7 +28,7 @@ const Header = () => {
                 src={user.profileImage || "/image/profileLogo.png"}
                 alt="profile"
               />
-              <p>{user.name || "사용자"}</p>
+              <p>{`${user.name}님` || "사용자"}</p>
             </div>
           ) : (
             <div className={styles.profileContainer}>

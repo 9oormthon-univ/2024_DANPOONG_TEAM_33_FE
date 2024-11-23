@@ -7,10 +7,7 @@ interface AuthUser {
 
 interface AuthState {
   user: AuthUser | null;
-  token: string | null;
   isAuthenticated: boolean;
-  login: (token: string, userData: AuthUser) => void;
+  login: (userData: AuthUser) => void;
   logout: () => void;
-  updateUser: (userData: Partial<AuthUser>) => void;
-  updateToken: (newToken: string) => void;
 }

@@ -1,6 +1,8 @@
+@import "../styles//GlobalStyle.module.less";
+
 .tableContainer {
   width: 100%;
-  max-width: 800px; // 테이블 최대 너비 설정
+  max-width: 800px;
   margin: 0 auto;
   padding: 20px;
 }
@@ -47,6 +49,7 @@
 
   td {
     padding: 0;
+    height: auto;
     border: 1px solid #e5e7eb;
 
     input {
@@ -86,22 +89,28 @@
   }
 }
 
-.submitButton {
-  padding: 8px 24px;
-  background-color: #4f7fff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.2s;
+.buttonContainer {
+  width: 100%;
 
-  &:hover {
-    background-color: #4169e1;
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+  .submitButton {
+    padding: 8px 24px;
+    background-color: #4f7fff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: #4169e1;
+    }
   }
 }
 
-// 스크롤바 스타일링
 .tableWrapper {
   &::-webkit-scrollbar {
     width: 6px;
@@ -115,5 +124,26 @@
   &::-webkit-scrollbar-thumb {
     background: #4f7fff;
     border-radius: 3px;
+  }
+}
+
+.fileContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fileBtnContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  button {
+    border: none;
+    background-color: @mainColor;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+  }
+  :hover {
+    cursor: pointer;
   }
 }

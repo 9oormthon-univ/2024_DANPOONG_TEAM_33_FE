@@ -1,15 +1,7 @@
 import React from "react";
 import styles from "../styles/CommonTable.module.less";
-
-interface CommonTableProps {
-  title: string;
-  description: string;
-  columns: Column[];
-  rowCount: number;
-  onInputChange: (rowIndex: number, columnKey: string, value: string) => void;
-  onSubmit: () => void;
-  onCancel: () => void;
-}
+import { useState } from "react";
+import FileUpload from "./FileUpload";
 
 const CommonTable: React.FC<CommonTableProps> = ({
   title,
@@ -17,11 +9,71 @@ const CommonTable: React.FC<CommonTableProps> = ({
   columns,
   rowCount,
   onInputChange,
-  onSubmit,
-  onCancel,
+  onFileChange,
+  handleFileUpload,
 }) => {
+  const [fileUpload, setFileUpload] = useState<boolean>(false);
+  const [currentRowIndex, setCurrentRowIndex] = useState<number | null>(null);
+  const [fileInfos, setFileInfos] = useState<{ [key: number]: File }>({});
+
+  const handleFileSelect = (file: File) => {
+    if (currentRowIndex !== null) {
+      const newFileInfos = {
+        ...fileInfos,
+        [currentRowIndex]: file,
+      };
+      setFileInfos(newFileInfos);
+      onFileChange?.(newFileInfos);
+    }
+    setFileUpload(false);
+  };
+  const renderInput = (column: any, rowIndex: number, onInputChange: any) => {
+    switch (column.type) {
+      case "fileName":
+        return (
+          <div className={styles.fileContainer}>
+            {fileInfos[rowIndex] ? (
+              <span className={styles.fileName}>
+                {fileInfos[rowIndex].name}
+              </span>
+            ) : null}
+          </div>
+        );
+      case "fileButton":
+        return (
+          <div className={styles.fileBtnContainer}>
+            <button
+              className={styles.fileButton}
+              onClick={() => {
+                setCurrentRowIndex(rowIndex);
+                setFileUpload(true);
+              }}
+            >
+              파일 업로드
+            </button>
+          </div>
+        );
+      case "text":
+        return (
+          <input
+            type="text"
+            onChange={(e) =>
+              onInputChange(rowIndex, column.key, e.target.value)
+            }
+          />
+        );
+      default:
+        return <div></div>;
+    }
+  };
   return (
     <div className={styles.tableContainer}>
+      {fileUpload && (
+        <FileUpload
+          setFileUpload={setFileUpload}
+          onFileSelect={handleFileSelect}
+        />
+      )}
       <h2 className={styles.title}>{title}</h2>
       <p className={styles.description}>{description}</p>
 
@@ -43,12 +95,7 @@ const CommonTable: React.FC<CommonTableProps> = ({
                 <tr key={rowIndex}>
                   {columns.map((column) => (
                     <td key={`${rowIndex}-${column.key}`}>
-                      <input
-                        type="text"
-                        onChange={(e) =>
-                          onInputChange(rowIndex, column.key, e.target.value)
-                        }
-                      />
+                      {renderInput(column, rowIndex, onInputChange)}
                     </td>
                   ))}
                 </tr>
@@ -56,13 +103,12 @@ const CommonTable: React.FC<CommonTableProps> = ({
           </tbody>
         </table>
       </div>
-
-      <div className={styles.buttonGroup}>
-        <button className={styles.cancelButton} onClick={onCancel}>
-          건너뛰기
-        </button>
-        <button className={styles.submitButton} onClick={onSubmit}>
-          등록하기
+      <div className={styles.buttonContainer}>
+        <button
+          className={styles.submitButton}
+          onClick={() => handleFileUpload()}
+        >
+          파일저장
         </button>
       </div>
     </div>

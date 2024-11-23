@@ -1,0 +1,60 @@
+@import "../../styles/GlobalStyle.module.less";
+.chartWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.status {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+  width: 150px;
+  height: 280px;
+  padding: 15px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 5px 5px 16px rgba(71, 130, 255, 0.3);
+}
+
+.barTitle {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.barGraph {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 80px;
+  height: 200px;
+  margin-bottom: 10px;
+  border-left: 1px solid black;
+  padding-left: 10px;
+  border-bottom: 1px solid black;
+}
+
+.barGraph .other {
+  width: 25px;
+  height: 100px; /* 높이 조정 */
+  background-color: @mainColor; /* 색상 조정 */
+}
+
+.barGraph .me {
+  width: 25px;
+  height: 60px; /* 높이 조정 */
+}
+
+.barLabel {
+  text-align: center;
+  font-size: 0.9rem;
+}

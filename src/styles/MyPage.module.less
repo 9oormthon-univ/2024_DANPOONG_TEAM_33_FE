@@ -1,5 +1,104 @@
+@import "../styles/GlobalStyle.module.less";
+
 .container {
-  width: 50%;
+  width: 100%;
   height: 100vh;
-  background-color: red;
+  .mainContainer {
+    overflow-y: auto;
+    width: 100%;
+    height: 100%;
+    padding: 0 14%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    .barChartContainer {
+      width: 100%;
+      height: 50%;
+
+      .userInfoContainer {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 9%;
+        height: 12%;
+
+        p {
+          font-size: 1rem;
+          font-weight: bold;
+          font-family: @logoFont;
+        }
+        img {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+        }
+      }
+    }
+    .bottomContainer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 60vh;
+      .leftContainer {
+        width: 50%;
+        height: 100%;
+        box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
+        border-bottom-right-radius: 50%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        padding: 20px;
+      }
+
+      .gridItem {
+        width: 200px;
+        height: 140px;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 15px;
+        box-sizing: border-box;
+      }
+
+      .itemHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: bold;
+        margin-bottom: 15px;
+      }
+
+      .itemContent {
+        color: @mainColor;
+        font-size: 0.9em;
+
+        > div {
+          margin: 5px 0;
+        }
+      }
+
+      .percentage {
+        color: @mainColor;
+        margin-left: 10px;
+      }
+
+      .date {
+        color: #666;
+        margin-left: 10px;
+      }
+      .rightContainer {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .calendar {
+          width: 80%;
+          height: 80%;
+          border: none;
+          outline: none;
+        }
+      }
+    }
+  }
 }

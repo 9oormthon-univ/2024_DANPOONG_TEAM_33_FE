@@ -2,17 +2,21 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/MainPage.module.less";
 import Header from "../components/Header.tsx";
-import Footer from "../components/Footer.tsx";
 import CompanyList from "../components/CompanyList.tsx";
 import Qualifications from "../components/Qualifications.tsx";
 import RecentCompany from "../components/RecentCompany.tsx";
+import Footer from "../components/Footer.tsx";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { getQualificationsCompany } from "../service/CompanyService.ts";
-import Chart from "../components/Chart.tsx";
+import {
+  getQualificationsCompany,
+  getTryCompanyList,
+  getRecentCompanyList,
+} from "../service/CompanyService.ts";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import CompanyPieChart from "../components/charts/CompanyPieChart.tsx";
 
 const MainPage = () => {
   const [clickedTry, setClickedTry] = useState<number | null>(null);
@@ -23,15 +27,51 @@ const MainPage = () => {
   const [showImage, setShowImage] = useState<boolean>(true);
   const [companyList, setCompanyList] = useState([
     // 서버 api 호출 전 임시 데이터
-    { name: "삼성전자1", end_date: "2024-12-31" },
-    { name: "삼성전자2", end_date: "2024-12-31" },
-    { name: "삼성전자3", end_date: "2024-12-31" },
-    { name: "삼성전자4", end_date: "2024-12-31" },
-    { name: "삼성전자5", end_date: "2024-12-31" },
-    { name: "삼성전자6", end_date: "2024-12-31" },
+    { name: "버그헌터", end_date: "2024-12-31" },
+    { name: "웹모션", end_date: "2024-12-31" },
+    { name: "빅데이터코어", end_date: "2024-12-31" },
+    { name: "디자인버스", end_date: "2024-12-31" },
+    { name: "서버웍스", end_date: "2024-12-31" },
+    { name: "빅데이터랩", end_date: "2024-12-31" },
   ]);
   const [value, setValue] = useState(new Date());
 
+  const companyData = [
+    {
+      companyName: "(주)원트",
+      chartData: [
+        { name: "자격증 충족", value: 45, color: "#4781ff" },
+        { name: "성적증명서/성적", value: 30, color: "#1ba93a" },
+        { name: "봉사 활동", value: 25, color: "#f06c00" },
+      ],
+    },
+    {
+      companyName: "(주)원트2",
+      chartData: [
+        { name: "자격증 충족", value: 55, color: "#4781ff" },
+        { name: "성적증명서/성적", value: 20, color: "#1ba93a" },
+        { name: "봉사 활동", value: 25, color: "#f06c00" },
+      ],
+    },
+    {
+      companyName: "(주)원트3",
+      chartData: [
+        { name: "자격증 충족", value: 45, color: "#4781ff" },
+        { name: "성적증명서/성적", value: 30, color: "#1ba93a" },
+        { name: "봉사 활동", value: 25, color: "#f06c00" },
+      ],
+    },
+    {
+      companyName: "(주)원트4",
+      chartData: [
+        { name: "자격증 충족", value: 45, color: "#4781ff" },
+        { name: "성적증명서/성적", value: 30, color: "#1ba93a" },
+        { name: "봉사 활동", value: 25, color: "#f06c00" },
+      ],
+    },
+  ];
+
+  const [recentCompanyList, setRecentCompanyList] = useState<any[]>([]);
   const navigate = useNavigate();
 
   const getQualificationsCompanyData = async () => {
@@ -47,8 +87,34 @@ const MainPage = () => {
     }
   };
 
+  const getTryCompanyListData = async () => {
+    try {
+      const response = await getTryCompanyList("main");
+      if (response.success) {
+        // setCompanyList(response.data.company_list);
+      }
+    } catch (error) {
+      console.error("맞춤 기업 호출 에러", error);
+    }
+  };
+
+  const getRecentCompanyListData = async () => {
+    try {
+      const response = await getRecentCompanyList();
+      if (response.success) {
+        setRecentCompanyList(response.data.company_list);
+        console.log("최근 기업", response.data.company_list);
+      }
+    } catch (error) {
+      console.error("최근 기업 호출 에러", error);
+    }
+  };
+
+  console.log(recentCompanyList);
   useEffect(() => {
     getQualificationsCompanyData();
+    getTryCompanyListData();
+    getRecentCompanyListData();
     return () => {
       setQualificationsCompany([]);
     };
@@ -121,7 +187,7 @@ const MainPage = () => {
             </div>
             <div className={styles.rightContainer}>
               <div className={styles.chartContainer}>
-                <Chart />
+                <CompanyPieChart companies={companyData} />
               </div>
               <div className={styles.menuContainer}>
                 <button onClick={() => navigate("/resume")}>
@@ -148,7 +214,7 @@ const MainPage = () => {
                     <img src="/image/more.png" />
                   </span>
                 </button>
-                <button>
+                <button onClick={() => navigate("/mypage")}>
                   마이페이지
                   <span>
                     <img src="/image/more.png" />
@@ -166,6 +232,7 @@ const MainPage = () => {
               ) : (
                 <p></p>
               )}
+              <a href="/qualificationscompany">더보기 &gt;</a>
             </div>
 
             {qualificationsCompany.length === 0 ? (
@@ -185,10 +252,9 @@ const MainPage = () => {
           </div>
           <div className={styles.bottomContainer}>
             <div className={styles.leftContainer}>
-              <div className={styles.recentCompanyTitle}>
-                <p>최근 채용 공고 기업</p>
-              </div>
-              <RecentCompany />
+              <RecentCompany
+                recentCompanyList={recentCompanyList && recentCompanyList}
+              />
             </div>
             <div className={styles.rightContainer}>
               <Calendar

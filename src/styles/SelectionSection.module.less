@@ -1,0 +1,69 @@
+@import "/src/styles//GlobalStyle.module.less";
+
+section {
+  margin-bottom: 80px;
+
+  h2 {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+}
+
+.selectionBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid @mainColor;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.selectionGroup {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.mainSelection,
+.subSelection {
+  flex: 1;
+  position: relative;
+
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+    background: @white;
+  }
+
+  .optionList {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 10;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    .option {
+      padding: 10px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #f8fafc;
+      }
+    }
+  }
+}

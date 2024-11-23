@@ -1,69 +1,87 @@
 import React, { useState } from "react";
 import styles from "../styles/CareerInfo.module.less";
+import {
+  INDUSTRY_DATA,
+  LOCATION_DATA,
+  CERTIFICATION_DATA,
+} from "../data/career";
+import SelectionSection from "./SelectionSection";
+import { saveOnBoardingData } from "../service/OnBoardingService";
+import { useAuthStore } from "../store/auth/AuthStore";
 
-// 임시 데이터 구조
-const INDUSTRY_DATA: IndustryData = {
-  "기획, 전략": ["마케팅", "영업 관리", "전략 기획"],
-  "영업 관리 부문": ["영업 관리", "세일즈", "기술 영업"],
-};
+interface CareerInfoProps {
+  selectedIndustry: string;
+  selectedSubIndustry: string;
+  selectedLocation: string;
+  selectedSubLocation: string;
+  setSelectedIndustry: (industry: string) => void;
+  setSelectedSubIndustry: (subIndustry: string) => void;
+  setSelectedLocation: (location: string) => void;
+  setSelectedSubLocation: (subLocation: string) => void;
+  setSelectedCertification: (certification: string) => void;
+  setSelectedSubCertification: (subCertification: string) => void;
+}
 
-const LOCATION_DATA: LocationData = {
-  서울: ["서울 전체", "강남구", "강북구", "노원구"],
-  경기: ["경기 전체", "성남시", "용인시", "수원시"],
-  부산: ["부산 전체", "해운대구", "부산진구"],
-  대전: ["대전 전체", "서구", "유성구"],
-};
-
-const CareerInfo: React.FC = () => {
+const CareerInfo: React.FC<CareerInfoProps> = ({
+  selectedIndustry,
+  selectedSubIndustry,
+  selectedLocation,
+  selectedSubLocation,
+  setSelectedIndustry,
+  setSelectedSubIndustry,
+  setSelectedLocation,
+  setSelectedSubLocation,
+  setSelectedCertification,
+  setSelectedSubCertification,
+}) => {
   // 목표 기업 검색
-  const [searchTerm, setSearchTerm] = useState("");
-
-  // 업종 선택 상태
-  const [selectedIndustry, setSelectedIndustry] = useState("");
-  const [selectedSubIndustry, setSelectedSubIndustry] = useState("");
-
-  // 지역 선택 상태
-  const [selectedLocation, setSelectedLocation] = useState("");
-  const [selectedSubLocation, setSelectedSubLocation] = useState("");
 
   // 경력 선택 상태
+  const user = useAuthStore((state) => state.user);
+
   const [careerLevels, setCareerLevels] = useState<string[]>([]);
 
-  // 드롭다운 표시 상태
-  const [showIndustryList, setShowIndustryList] = useState(false);
-  const [showSubIndustryList, setShowSubIndustryList] = useState(false);
-  const [showLocationList, setShowLocationList] = useState(false);
-  const [showSubLocationList, setShowSubLocationList] = useState(false);
+  const [,] = useState<any[]>([]);
 
   const handleIndustrySelect = (industry: string) => {
+    // 메인업종
     console.log("Selected Industry:", industry);
     setSelectedIndustry(industry);
     setSelectedSubIndustry("");
-    setShowIndustryList(false);
-    setShowSubIndustryList(true);
+  };
+  const handleCertificationSelect = (certification: string) => {
+    // 메인자격증
+    console.log("Selected Certification:", certification);
+    setSelectedCertification(certification);
+    setSelectedSubCertification("");
+  };
+  const handleCertificationSubSelect = (subCertification: string) => {
+    // 서브자격증
+    console.log("Selected Sub Certification:", subCertification);
+    setSelectedSubCertification(subCertification);
   };
 
   const handleSubIndustrySelect = (subIndustry: string) => {
+    // 서브업종
     console.log("Selected Sub Industry:", subIndustry);
     setSelectedSubIndustry(subIndustry);
-    setShowSubIndustryList(false);
   };
 
   const handleLocationSelect = (location: string) => {
+    // 메인지역
     console.log("Selected Location:", location);
     setSelectedLocation(location);
     setSelectedSubLocation("");
-    setShowLocationList(false);
-    setShowSubLocationList(true);
   };
 
   const handleSubLocationSelect = (subLocation: string) => {
+    // 서브지역
     console.log("Selected Sub Location:", subLocation);
     setSelectedSubLocation(subLocation);
-    setShowSubLocationList(false);
   };
 
   const handleCareerLevelChange = (level: string) => {
+    // 경력
     console.log("Career Level Change:", level);
     setCareerLevels(
       careerLevels.includes(level)
@@ -72,142 +90,59 @@ const CareerInfo: React.FC = () => {
     );
   };
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("Search Term:", e.target.value);
-    setSearchTerm(e.target.value);
+  const handleSave = async () => {
+    try {
+      const data = {
+        industryCategory: selectedIndustry,
+        subIndustry: selectedSubIndustry,
+        region: selectedLocation,
+        subRegion: selectedSubLocation,
+        career: careerLevels[0] || "",
+        targetCompanies: ["LG", "삼성"],
+      };
+      const response = await saveOnBoardingData(data);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
-
+  console.log(
+    "호출데이터",
+    typeof selectedIndustry,
+    typeof selectedSubIndustry,
+    typeof selectedLocation,
+    typeof selectedSubLocation,
+    typeof careerLevels
+  );
   return (
     <div className={styles.container}>
       {/* 목표 기업 섹션 */}
-      <section className={styles.section}>
-        <h2>목표 기업을 알려주세요.</h2>
-        <div className={styles.searchBox}>
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={handleSearchChange}
-            placeholder="일트 구글로 카카오"
-          />
-          <button className={styles.searchIcon}>
-            <img src="/public/image/searchBtn.png" />
-          </button>
-        </div>
-        <div className={styles.buttonGroup}>
-          <button className={styles.skipButton}>건너뛰기</button>
-          <button className={styles.submitButton}>등록하기</button>
-        </div>
-      </section>
+      <SelectionSection
+        title={`${user?.name}님 자격증을 알려주세요`}
+        mainPlaceholder="자격증 종류를 선택해주세요"
+        subPlaceholder="자격증 이름을 입력해주세요"
+        data={CERTIFICATION_DATA}
+        onMainSelect={handleCertificationSelect}
+        onSubSelect={handleCertificationSubSelect}
+      />
+      <SelectionSection
+        title="어떤 업종을 준비중이신가요?"
+        mainPlaceholder="업종 경력"
+        subPlaceholder="기획, 전략 - 마케팅"
+        data={INDUSTRY_DATA}
+        onMainSelect={handleIndustrySelect}
+        onSubSelect={handleSubIndustrySelect}
+      />
 
-      {/* 업종 선택 섹션 */}
-      <section className={styles.section}>
-        <h2>어떤 업종을 준비중이신가요?</h2>
-        <div className={styles.selectionBox}>
-          <div className={styles.selectionGroup}>
-            <div className={styles.mainSelection}>
-              <input
-                type="text"
-                placeholder="업종 경력"
-                value={selectedIndustry}
-                readOnly
-                onClick={() => setShowIndustryList(!showIndustryList)}
-              />
-              {showIndustryList && (
-                <div className={styles.optionList}>
-                  {Object.keys(INDUSTRY_DATA).map((industry) => (
-                    <div
-                      key={industry}
-                      className={styles.option}
-                      onClick={() => handleIndustrySelect(industry)}
-                    >
-                      {industry}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-            <div className={styles.subSelection}>
-              <input
-                type="text"
-                placeholder="기획, 전략 - 마케팅"
-                value={selectedSubIndustry}
-                readOnly
-                onClick={() => setShowSubIndustryList(!showSubIndustryList)}
-              />
-              {showSubIndustryList && selectedIndustry && (
-                <div className={styles.optionList}>
-                  {INDUSTRY_DATA[selectedIndustry]?.map((subIndustry) => (
-                    <div
-                      key={subIndustry}
-                      className={styles.option}
-                      onClick={() => handleSubIndustrySelect(subIndustry)}
-                    >
-                      {subIndustry}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-          <button className={styles.saveButton}>저장하기</button>
-        </div>
-      </section>
+      <SelectionSection
+        title="어느 지역에서 근무하고 싶으신가요?"
+        mainPlaceholder="지역별 선택"
+        subPlaceholder="시/군/구"
+        data={LOCATION_DATA}
+        onMainSelect={handleLocationSelect}
+        onSubSelect={handleSubLocationSelect}
+      />
 
-      {/* 지역 선택 섹션 */}
-      <section className={styles.section}>
-        <h2>어느 지역에서 근무하고 싶으신가요?</h2>
-        <div className={styles.selectionBox}>
-          <div className={styles.selectionGroup}>
-            <div className={styles.mainSelection}>
-              <input
-                type="text"
-                placeholder="지역별 선택"
-                value={selectedLocation}
-                readOnly
-                onClick={() => setShowLocationList(!showLocationList)}
-              />
-              {showLocationList && (
-                <div className={styles.optionList}>
-                  {Object.keys(LOCATION_DATA).map((location) => (
-                    <div
-                      key={location}
-                      className={styles.option}
-                      onClick={() => handleLocationSelect(location)}
-                    >
-                      {location}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-            <div className={styles.subSelection}>
-              <input
-                type="text"
-                placeholder="시/군/구"
-                value={selectedSubLocation}
-                readOnly
-                onClick={() => setShowSubLocationList(!showSubLocationList)}
-              />
-              {showSubLocationList && selectedLocation && (
-                <div className={styles.optionList}>
-                  {LOCATION_DATA[selectedLocation]?.map((subLocation) => (
-                    <div
-                      key={subLocation}
-                      className={styles.option}
-                      onClick={() => handleSubLocationSelect(subLocation)}
-                    >
-                      {subLocation}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-          <button className={styles.saveButton}>저장하기</button>
-        </div>
-      </section>
-
-      {/* 경력 선택 섹션 */}
       <section className={styles.section}>
         <h2>경력을 알려주세요.</h2>
         <div className={styles.careerBox}>
@@ -222,8 +157,10 @@ const CareerInfo: React.FC = () => {
             </label>
           ))}
         </div>
-        <button className={styles.saveButton}>저장하기</button>
       </section>
+      <button className={styles.saveButton} onClick={handleSave}>
+        저장하기
+      </button>
     </div>
   );
 };
